@@ -1,0 +1,19 @@
+name: TheLuck
+version: '${project.version}'
+main: mclove32.theluck.TheLuck
+api-version: '1.20'
+
+depend:
+  - MythicMobs
+  - DBUtils
+
+commands:
+  theLuck:
+    permission: TheLuck.command.theLuck
+
+
+permissions:
+  TheLuck.command.theLuck:
+    default: true
+  TheLuck.command.theLuck.more:
+    default: op

@@ -1,0 +1,17 @@
+Drops:
+  PlayerBase: 0.01
+  DropErrorRange: 0.1
+  DropCorrection: 0.01
+  DropStack: 15
+
+General:
+  SaveDataTick: 72000
+
+Database:
+  host: localhost
+  port: 3306
+  database: TheLuck
+  username: TheLuck
+  password: TheLuck
+  luckTable: TheLuck
+  luckAllTable: TheLuckAll
