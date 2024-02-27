@@ -1,5 +1,6 @@
 package mclove32.theluck.database;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.bukkit.Bukkit.getLogger;
 
 public class DBDrops extends DBCon {
 
@@ -104,6 +107,8 @@ public class DBDrops extends DBCon {
 
         LocalDateTime time = LocalDateTime.now();
         LocalDateTime past = time.minusDays(28);
+
+        getLogger().info(28 + "日前のデータをクリアしました。");
 
         try {
             try (Connection con = dataSource.getConnection()) {

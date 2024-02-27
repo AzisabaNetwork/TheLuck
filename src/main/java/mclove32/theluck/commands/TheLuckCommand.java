@@ -2,6 +2,7 @@ package mclove32.theluck.commands;
 
 import io.lumine.mythic.api.mobs.MythicMob;
 import io.lumine.mythic.bukkit.MythicBukkit;
+import io.lumine.mythic.bukkit.utils.lib.jooq.Collation;
 import mclove32.theluck.TheLuck;
 import mclove32.theluck.config.ReadMythicConfig;
 import mclove32.theluck.database.DBDrops;

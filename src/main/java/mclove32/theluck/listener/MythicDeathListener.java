@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MythicDeathListener implements Listener {
 
@@ -66,6 +67,7 @@ public class MythicDeathListener implements Listener {
 
         } else {
             AbstractEntity ab = mob.getEntity().getTarget();
+            if (ab == null) return;
             if (ab.isPlayer()) {
                 Player p = BukkitAdapter.adapt(ab.asPlayer());
                 playerList.add(p);
@@ -96,12 +98,16 @@ public class MythicDeathListener implements Listener {
 
     public void load(String mmid, List<String> items) {
 
-        if (DBDrops.dataGeneral.isEmpty()) {
-            Bukkit.getScheduler().runTaskAsynchronously(luck, ()-> {
 
-                new DBDrops(luck).loadData(mmid, items);
-                new DBDropsAll(luck).loadData(mmid, items);
-            });
+        if (!DBDrops.dataGeneral.isEmpty()) {
+            for (Map<String, Map<String, Long>> map : DBDrops.dataGeneral) {
+                if (map.containsKey(mmid)) return;
+            }
         }
+        Bukkit.getScheduler().runTaskAsynchronously(luck, () -> {
+
+            new DBDrops(luck).loadData(mmid, items);
+            new DBDropsAll(luck).loadData(mmid, items);
+        });
     }
 }
