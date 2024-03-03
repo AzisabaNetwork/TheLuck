@@ -45,13 +45,19 @@ public final class TheLuck extends JavaPlugin {
 
         if (force) {
 
+            for (Map<String, Map<String, Long>> map : DBDropsAll.dataAllGeneral) {
+                for (String mmid: map.keySet()) {
+                    for (String item : map.get(mmid).keySet()) {
+                        new DBDropsAll(this).saveData(mmid, item, map.get(mmid).get(item));
+                    }
+                }
+            }
+
             int i = 0;
             int count = 0;
             for (Map<String, Map<String, Long>> map : DBDrops.dataGeneral) {
                 for (String mmid : map.keySet()) {
                     for (String item : map.get(mmid).keySet()) {
-
-                        new DBDropsAll(this).saveData(mmid, item, map.get(mmid).get(item));
                         i+= new DBDrops(this).saveData(mmid, item, map.get(mmid).get(item), DBDrops.dataExpect.get(count).get(mmid).get(item), i);
                     }
                 }
@@ -63,14 +69,24 @@ public final class TheLuck extends JavaPlugin {
 
             Bukkit.getScheduler().runTaskAsynchronously(this, ()-> {
 
+                for (Map<String, Map<String, Long>> map : DBDropsAll.dataAllGeneral) {
+                    for (String mmid: map.keySet()) {
+                        for (String item : map.get(mmid).keySet()) {
+                            new DBDropsAll(this).saveData(mmid, item, map.get(mmid).get(item));
+                        }
+                    }
+                }
+
+                int count = 0;
                 for (Map<String, Map<String, Long>> map: DBDrops.dataGeneral) {
                     for (String mmid : map.keySet()) {
                         for (String item : map.get(mmid).keySet()) {
 
                             new DBDropsAll(this).saveData(mmid, item, map.get(mmid).get(item));
-                            new DBDrops(this).saveData(mmid, item, map.get(mmid).get(item), map.get(mmid).get(item));
+                            new DBDrops(this).saveData(mmid, item, map.get(mmid).get(item), DBDrops.dataExpect.get(count).get(mmid).get(item));
                         }
                     }
+                    count++;
                 }
             });
         }
